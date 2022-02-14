@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(screenWidth, screenHeight, camera);
 
-        background = new Texture("bg.png");
+        background = new Texture("background.png");
         backgroundOffset = 0;
 
         batch = new SpriteBatch();
