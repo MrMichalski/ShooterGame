@@ -5,21 +5,30 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen implements Screen {
 
+
+    //Viewing
     private Camera camera;
     private Viewport viewport;
 
+    //Graphics
     private SpriteBatch batch;
-    private Texture background;
+    private TextureAtlas textureAtlas;
+    private TextureRegion background, playerShipTextureRegion, enemyShipTextureRegion, PlayerLaserTextureRegion, EnemyLaserTextureRegion, shieldTextureRegion, backgroundTextureRegion;
 
+    //Maths
     private int backgroundOffset;
 
+    //Game parameters
     private final int screenWidth = 128;
     private final int screenHeight = 256;
+
 
 
 
@@ -27,7 +36,8 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(screenWidth, screenHeight, camera);
 
-        background = new Texture("background.png");
+        textureAtlas = new TextureAtlas("textures.atlas");
+        background = textureAtlas.findRegion("background");
         backgroundOffset = 0;
 
         batch = new SpriteBatch();

@@ -1,0 +1,48 @@
+
+textures.png
+size: 1024, 1024
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+background
+  rotate: false
+  xy: 2, 189
+  size: 640, 640
+  orig: 640, 640
+  offset: 0, 0
+  index: -1
+laserBlue01
+  rotate: false
+  xy: 137, 133
+  size: 9, 54
+  orig: 9, 54
+  offset: 0, 0
+  index: -1
+laserRed01
+  rotate: false
+  xy: 644, 698
+  size: 9, 54
+  orig: 9, 54
+  offset: 0, 0
+  index: -1
+playerShip1_green
+  rotate: false
+  xy: 644, 754
+  size: 99, 75
+  orig: 99, 75
+  offset: 0, 0
+  index: -1
+playerShip3_red
+  rotate: false
+  xy: 2, 2
+  size: 98, 75
+  orig: 98, 75
+  offset: 0, 0
+  index: -1
+shield1
+  rotate: false
+  xy: 2, 79
+  size: 133, 108
+  orig: 133, 108
+  offset: 0, 0
+  index: -1
