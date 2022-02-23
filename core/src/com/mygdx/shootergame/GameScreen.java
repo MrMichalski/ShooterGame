@@ -20,15 +20,19 @@ public class GameScreen implements Screen {
     //Graphics
     private SpriteBatch batch;
     private TextureAtlas textureAtlas;
-    private TextureRegion playerShipTextureRegion, enemyShipTextureRegion, playerLaserTextureRegion, enemyLaserTextureRegion, shieldTextureRegion, backgroundTextureRegion;
+    private TextureRegion playerShipTextureRegion, enemyShipTextureRegion, playerLaserTextureRegion, enemyLaserTextureRegion, playerShieldTextureRegion, enemyShieldTextureRegion, backgroundTextureRegion;
 
 
     //Maths
     private int backgroundOffset;
 
     //Game parameters
-    private final int screenWidth = 128;
-    private final int screenHeight = 256;
+    private final int screenWidth = 480;
+    private final int screenHeight = 800;
+
+    //Game objects
+    private Ship playerShip;
+    private Ship enemyShip;
 
 
 
@@ -39,11 +43,17 @@ public class GameScreen implements Screen {
 
         textureAtlas = new TextureAtlas("textures.atlas");
         backgroundTextureRegion = textureAtlas.findRegion("background");
-        shieldTextureRegion = textureAtlas.findRegion("shield1");
+        playerShieldTextureRegion = textureAtlas.findRegion("shield1");
+        enemyShieldTextureRegion = textureAtlas.findRegion("shield1");
+        enemyShieldTextureRegion.flip(true, true);
         playerShipTextureRegion = textureAtlas.findRegion("playerShip1_green");
         enemyShipTextureRegion = textureAtlas.findRegion("playerShip3_red");
         playerLaserTextureRegion = textureAtlas.findRegion("laserBlue01");
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed01");
+
+
+        playerShip = new Ship(screenWidth / 2, screenHeight *1/5, 50, 50, 10, 5, playerShipTextureRegion, playerShieldTextureRegion);
+        enemyShip = new Ship(screenWidth / 2, screenHeight *4/5, 30, 30, 10, 3, enemyShipTextureRegion, enemyShieldTextureRegion);
 
 
         backgroundOffset = 0;
@@ -65,6 +75,9 @@ public class GameScreen implements Screen {
         batch.draw(backgroundTextureRegion, 0, backgroundOffset - screenHeight, screenWidth, screenHeight);
 
         //ships
+        playerShip.draw(batch);
+        enemyShip.draw(batch);
+
 
         batch.end();
     }

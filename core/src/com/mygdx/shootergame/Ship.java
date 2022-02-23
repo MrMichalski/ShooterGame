@@ -31,7 +31,7 @@ public class Ship {
 public void draw(Batch batch) {
         batch.draw(shipTextureRegion, xPosition, yPosition, xSize, ySize);
         if(shield >= 0) {
-            batch.draw(shieldTextureRegion, xPosition, yPosition + ySize / 4, xSize * 5/4, ySize );
+            batch.draw(shieldTextureRegion, xPosition - (xSize * 5/4)/2, yPosition + ySize / 4, xSize * 5/4, ySize );
         }
 }
 }

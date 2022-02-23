@@ -6,43 +6,50 @@ filter: Nearest, Nearest
 repeat: none
 background
   rotate: false
-  xy: 2, 189
+  xy: 2, 200
   size: 640, 640
   orig: 640, 640
   offset: 0, 0
   index: -1
 laserBlue01
   rotate: false
-  xy: 137, 133
+  xy: 644, 676
   size: 9, 54
   orig: 9, 54
   offset: 0, 0
   index: -1
 laserRed01
   rotate: false
-  xy: 644, 698
+  xy: 779, 786
   size: 9, 54
   orig: 9, 54
   offset: 0, 0
   index: -1
 playerShip1_green
   rotate: false
-  xy: 644, 754
+  xy: 2, 2
   size: 99, 75
   orig: 99, 75
   offset: 0, 0
   index: -1
 playerShip3_red
   rotate: false
-  xy: 2, 2
+  xy: 147, 123
   size: 98, 75
   orig: 98, 75
   offset: 0, 0
   index: -1
 shield1
   rotate: false
-  xy: 2, 79
+  xy: 644, 732
   size: 133, 108
   orig: 133, 108
+  offset: 0, 0
+  index: -1
+shield2
+  rotate: false
+  xy: 2, 79
+  size: 143, 119
+  orig: 143, 119
   offset: 0, 0
   index: -1
