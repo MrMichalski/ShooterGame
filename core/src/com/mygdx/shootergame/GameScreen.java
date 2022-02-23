@@ -20,7 +20,8 @@ public class GameScreen implements Screen {
     //Graphics
     private SpriteBatch batch;
     private TextureAtlas textureAtlas;
-    private TextureRegion background, playerShipTextureRegion, enemyShipTextureRegion, PlayerLaserTextureRegion, EnemyLaserTextureRegion, shieldTextureRegion, backgroundTextureRegion;
+    private TextureRegion playerShipTextureRegion, enemyShipTextureRegion, playerLaserTextureRegion, enemyLaserTextureRegion, shieldTextureRegion, backgroundTextureRegion;
+
 
     //Maths
     private int backgroundOffset;
@@ -37,7 +38,14 @@ public class GameScreen implements Screen {
         viewport = new StretchViewport(screenWidth, screenHeight, camera);
 
         textureAtlas = new TextureAtlas("textures.atlas");
-        background = textureAtlas.findRegion("background");
+        backgroundTextureRegion = textureAtlas.findRegion("background");
+        shieldTextureRegion = textureAtlas.findRegion("shield1");
+        playerShipTextureRegion = textureAtlas.findRegion("playerShip1_green");
+        enemyShipTextureRegion = textureAtlas.findRegion("playerShip3_red");
+        playerLaserTextureRegion = textureAtlas.findRegion("laserBlue01");
+        enemyLaserTextureRegion = textureAtlas.findRegion("laserRed01");
+
+
         backgroundOffset = 0;
 
         batch = new SpriteBatch();
@@ -53,8 +61,11 @@ public class GameScreen implements Screen {
             backgroundOffset = 0;
         }
         batch.begin();
-        batch.draw(background, 0, backgroundOffset, screenWidth, screenHeight);
-        batch.draw(background, 0, backgroundOffset - screenHeight, screenWidth, screenHeight);
+        batch.draw(backgroundTextureRegion, 0, backgroundOffset, screenWidth, screenHeight);
+        batch.draw(backgroundTextureRegion, 0, backgroundOffset - screenHeight, screenWidth, screenHeight);
+
+        //ships
+
         batch.end();
     }
 
