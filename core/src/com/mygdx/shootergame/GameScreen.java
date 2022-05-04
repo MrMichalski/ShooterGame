@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
+
 public class GameScreen implements Screen {
 
 
@@ -33,6 +36,8 @@ public class GameScreen implements Screen {
     //Game objects
     private Ship playerShip;
     private Ship enemyShip;
+    private LinkedList<Laser> playerLaserList;
+    private LinkedList<Laser> enemyLaserList;
 
 
 
@@ -43,7 +48,7 @@ public class GameScreen implements Screen {
 
         textureAtlas = new TextureAtlas("textures.atlas");
         backgroundTextureRegion = textureAtlas.findRegion("background");
-        playerShieldTextureRegion = textureAtlas.findRegion("shield1");
+        playerShieldTextureRegion = textureAtlas.findRegion("shield2");
         enemyShieldTextureRegion = textureAtlas.findRegion("shield1");
         enemyShieldTextureRegion.flip(true, true);
         playerShipTextureRegion = textureAtlas.findRegion("playerShip1_green");
@@ -52,9 +57,11 @@ public class GameScreen implements Screen {
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed01");
 
 
-        playerShip = new Ship(screenWidth / 2, screenHeight *1/5, 50, 50, 10, 5, playerShipTextureRegion, playerShieldTextureRegion);
-        enemyShip = new Ship(screenWidth / 2, screenHeight *4/5, 30, 30, 10, 3, enemyShipTextureRegion, enemyShieldTextureRegion);
+        playerShip = new PlayerShip(screenWidth / 2, screenHeight *1/5, 50, 50, 10, 5, playerShipTextureRegion, playerShieldTextureRegion, 0.2f ,4, 14, 300,playerLaserTextureRegion);
+        enemyShip = new EnemyShip(screenWidth / 2, screenHeight *4/5, 30, 30, 10, 3, enemyShipTextureRegion, enemyShieldTextureRegion, 0.5f, 3, 10, 200 ,enemyLaserTextureRegion);
 
+        playerLaserList = new LinkedList<>();
+        enemyLaserList = new LinkedList<>();
 
         backgroundOffset = 0;
 
@@ -65,18 +72,60 @@ public class GameScreen implements Screen {
 
 
     @Override
-    public void render(float delta) {
-        backgroundOffset++;
-        if (backgroundOffset == screenHeight) {
+    public void render(float deltaTime) {
+        backgroundOffset--;
+        if (backgroundOffset == screenHeight*(-1)) {
             backgroundOffset = 0;
         }
         batch.begin();
         batch.draw(backgroundTextureRegion, 0, backgroundOffset, screenWidth, screenHeight);
-        batch.draw(backgroundTextureRegion, 0, backgroundOffset - screenHeight, screenWidth, screenHeight);
+        batch.draw(backgroundTextureRegion, 0, backgroundOffset + screenHeight, screenWidth, screenHeight);
+
+        playerShip.update(deltaTime);
+        enemyShip.update(deltaTime);
 
         //ships
         playerShip.draw(batch);
         enemyShip.draw(batch);
+
+        //lasers
+        //Create new lasers
+
+        //PlayerLasers
+        if(playerShip.canFireLaser()) {
+            Laser[] lasers = playerShip.fireLaser();
+            for (Laser laser: lasers) {
+                playerLaserList.add(laser);
+            }
+        }
+        //EnemyLasers
+        if(enemyShip.canFireLaser()) {
+            Laser[] lasers = enemyShip.fireLaser();
+            for (Laser laser: lasers) {
+                enemyLaserList.add(laser);
+            }
+        }
+        //Draw lasers
+        //Delete lasers
+        ListIterator<Laser> iterator = playerLaserList.listIterator();
+        while(iterator.hasNext()) {
+            Laser laser = iterator.next();
+            laser.draw(batch);
+            laser.yPosition += laser.movementSpeed * deltaTime;
+            if(laser.yPosition > screenHeight) {
+                iterator.remove();
+            }
+        }
+        iterator = enemyLaserList.listIterator();
+        while(iterator.hasNext()) {
+            Laser laser = iterator.next();
+            laser.draw(batch);
+            laser.yPosition =- laser.movementSpeed * deltaTime;
+            if(laser.yPosition + laser.height < 0) {
+                iterator.remove();
+            }
+        }
+
 
 
         batch.end();

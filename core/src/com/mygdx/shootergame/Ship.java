@@ -3,35 +3,59 @@ package com.mygdx.shootergame;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Ship {
+public abstract class Ship {
 
     //properties
     int movementSpeed;
     int shield;
 
     //Size and place
-    int xPosition, xSize;
-    int yPosition, ySize;
+    int xPosition, width;
+    int yPosition, height;
 
     //Graphics
     TextureRegion shipTextureRegion;
     TextureRegion shieldTextureRegion;
+    TextureRegion laserTextureRegion;
 
-    public Ship( int xCentre, int yCentre,int xSize, int ySize, int movementSpeed, int shield,  TextureRegion shipTextureRegion, TextureRegion shieldTextureRegion) {
+    //Information about laser
+    float laserWidth, laserHeight;
+    float laserMovementSpeed;
+    float timeBetweenShoots;
+    float timeSinceLastShot = 0;
+
+    public Ship( int xCentre, int yCentre,int width, int height, int movementSpeed, int shield,  TextureRegion shipTextureRegion, TextureRegion shieldTextureRegion, float timeBetweenShoots, float laserWidth, float laserHeight, float laserMovementSpeed, TextureRegion laserTextureRegion) {
         this.movementSpeed = movementSpeed;
         this.shield = shield;
-        this.xPosition = xCentre - xSize/2;
-        this.xSize = xSize;
-        this.yPosition = yCentre - ySize/2;
-        this.ySize = ySize;
+        this.xPosition = xCentre - width/2;
+        this.width = width;
+        this.yPosition = yCentre - height/2;
+        this.height = height;
         this.shipTextureRegion = shipTextureRegion;
         this.shieldTextureRegion = shieldTextureRegion;
+        this.timeBetweenShoots = timeBetweenShoots;
+        this.laserWidth= laserWidth;
+        this.laserHeight = laserHeight;
+        this.laserMovementSpeed = laserMovementSpeed;
+        this.laserTextureRegion = laserTextureRegion;
     }
 
+
+    public void update(float deltaTime) {
+        //timeSinceLastShot = timeSinceLastShot + deltaTime;
+        timeSinceLastShot += deltaTime;
+    }
+
+    public boolean canFireLaser() {
+        return (timeSinceLastShot - timeBetweenShoots >= 0);
+    }
+
+    public abstract Laser[] fireLaser();
+
 public void draw(Batch batch) {
-        batch.draw(shipTextureRegion, xPosition, yPosition, xSize, ySize);
+        batch.draw(shipTextureRegion, xPosition, yPosition, width, height);
         if(shield >= 0) {
-            batch.draw(shieldTextureRegion, xPosition - (xSize * 5/4)/2, yPosition + ySize / 4, xSize * 5/4, ySize );
+            batch.draw(shieldTextureRegion, xPosition - ((width * 3/2 - width)/2), yPosition, width * 3/2, height );
         }
 }
 }
