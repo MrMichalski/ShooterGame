@@ -55,6 +55,7 @@ public class GameScreen implements Screen {
         enemyShipTextureRegion = textureAtlas.findRegion("playerShip3_red");
         playerLaserTextureRegion = textureAtlas.findRegion("laserBlue01");
         enemyLaserTextureRegion = textureAtlas.findRegion("laserRed01");
+        enemyLaserTextureRegion.flip(true, true);
 
 
         playerShip = new PlayerShip(screenWidth / 2, screenHeight *1/5, 50, 50, 10, 5, playerShipTextureRegion, playerShieldTextureRegion, 0.2f ,4, 14, 300,playerLaserTextureRegion);
@@ -120,7 +121,7 @@ public class GameScreen implements Screen {
         while(iterator.hasNext()) {
             Laser laser = iterator.next();
             laser.draw(batch);
-            laser.yPosition =- laser.movementSpeed * deltaTime;
+            laser.yPosition -= laser.movementSpeed * deltaTime;
             if(laser.yPosition + laser.height < 0) {
                 iterator.remove();
             }
