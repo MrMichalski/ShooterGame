@@ -2,24 +2,25 @@ package com.mygdx.shootergame;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 
 public class Laser {
 
-    float xPosition, yPosition;
-    float width, height;
+    Rectangle boundingBox;
     float movementSpeed;
     TextureRegion textureRegion;
 
     public Laser(float xCentre, float yPosition, float width, float height, float movementSpeed, TextureRegion textureRegion) {
-        this.xPosition = xCentre - width/2;
-        this.yPosition = yPosition;
-        this.width = width;
-        this.height = height;
+        this.boundingBox = new Rectangle(xCentre - width/2, yPosition - height/2, width, height);
         this.movementSpeed = movementSpeed;
         this.textureRegion = textureRegion;
     }
 
     public void draw(Batch batch) {
-        batch.draw(textureRegion, xPosition, yPosition, width, height);
+        batch.draw(textureRegion, boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
     }
+
+    //Rectangle getBoundingBox() {
+    //    return new Rectangle(xPosition, yPosition, width, height);
+    //}
 }
