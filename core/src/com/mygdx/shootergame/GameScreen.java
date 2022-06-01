@@ -30,9 +30,9 @@ public class GameScreen implements Screen {
 
     //Maths
     private int backgroundOffset;
-    private float timeBetweenEnemySpawns = 1f;
-    private int enemyShipsSpawnCount = 3;
-    private int maxEnemyShipsCount = 5;
+    private float timeBetweenEnemySpawns = 3f;
+    private int enemyShipsSpawnCount = 2;
+    private int maxEnemyShipsCount = 3;
     private boolean limitEnemyShipSpawn = true;
     private float enemySpawnTimer = 3;
 
@@ -129,18 +129,16 @@ public class GameScreen implements Screen {
                 if(limitEnemyShipSpawn == true) {
                         for (int i = 0; i < enemyShipsSpawnCount; i++) {
                             if(enemyShipList.size() < maxEnemyShipsCount) {
-                                enemyShipList.add(new EnemyShip(screenWidth / 2, screenHeight *4/5, 30, 30, 100, 3, enemyShipTextureRegion, enemyShieldTextureRegion, 0.5f, 3, 10, 200 ,enemyLaserTextureRegion));
-                                enemySpawnTimer = 0;
+                                enemyShipList.add(new EnemyShip(screenWidth / 2, screenHeight *4/5, 30, 30, 100, 2, enemyShipTextureRegion, enemyShieldTextureRegion, 0.5f, 3, 10, 200 ,enemyLaserTextureRegion));
                             }
                         }
                 }
                 else {
                     for (int i = 0; i < maxEnemyShipsCount; i++) {
                         enemyShipList.add(new EnemyShip(screenWidth / 2, screenHeight *4/5, 30, 30, 100, 3, enemyShipTextureRegion, enemyShieldTextureRegion, 0.5f, 3, 10, 200 ,enemyLaserTextureRegion));
-                        enemySpawnTimer = 0;
                     }
-
                 }
+            enemySpawnTimer = 0;
         }
     }
 
